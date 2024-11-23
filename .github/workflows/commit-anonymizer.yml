@@ -1,0 +1,18 @@
+name: Anonymize Commits
+
+on: push
+
+jobs:
+  anonymize:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Change commit author
+        run: |
+          git config user.name "Anonymous"
+          git config user.email "anonymous@example.com"
+          git commit --amend --author="Anonymous <anonymous@example.com>" --no-edit
+          git push --force
